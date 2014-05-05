@@ -29,20 +29,19 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
     cout << "Starting new database" << endl;
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setConnectOptions();
     string ubuffer = "";
     string hbuffer = "";
     string pbuffer = "";
     string dbuffer = "";
     cout << "Please enter a database name" << endl;
     cin >> dbuffer;
-    QString database = QString::fromStdString(ubuffer);
+    QString database = QString::fromStdString(dbuffer);
     db.setDatabaseName(database);
+
     cout << "Please enter a hostname" << endl;
     cin >> hbuffer;
-    QString hostname = QString::fromStdString(ubuffer);
+    QString hostname = QString::fromStdString(hbuffer);
     db.setHostName(hostname);
-    db.setPort(3306);
     cout << "Please enter a username" << endl;
     cin >> ubuffer;
     QString username = QString::fromStdString(ubuffer);
@@ -51,6 +50,7 @@ int main(int argc, char *argv[])
     cin >> pbuffer;
     QString password = QString::fromStdString(pbuffer);
     db.setPassword(password);
+
     bool ok = db.open();
     if (ok == true){
         cout << "Connection successful" << endl;
