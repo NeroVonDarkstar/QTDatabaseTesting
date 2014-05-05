@@ -24,19 +24,24 @@
 
 using namespace std;
 
-bool createConnection();
-void adduser();
-
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     cout << "Starting new database" << endl;
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    string ubuffer = "";
-    string pbuffer = "";
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setConnectOptions();
-    db.setDatabaseName("test");
-    db.setHostName("ephesus.cs.cf.ac.uk");
+    string ubuffer = "";
+    string hbuffer = "";
+    string pbuffer = "";
+    string dbuffer = "";
+    cout << "Please enter a database name" << endl;
+    cin >> dbuffer;
+    QString database = QString::fromStdString(ubuffer);
+    db.setDatabaseName(database);
+    cout << "Please enter a hostname" << endl;
+    cin >> hbuffer;
+    QString hostname = QString::fromStdString(ubuffer);
+    db.setHostName(hostname);
     db.setPort(3306);
     cout << "Please enter a username" << endl;
     cin >> ubuffer;
@@ -46,13 +51,12 @@ int main(int argc, char *argv[])
     cin >> pbuffer;
     QString password = QString::fromStdString(pbuffer);
     db.setPassword(password);
-    bool x = db.open();
-    if (x == true){
+    bool ok = db.open();
+    if (ok == true){
         cout << "Connection successful" << endl;
-        //adduser();
     }
     else{
-        cout << "not yet jim" << endl;
+        cout << " Haven't Connected!" << endl;
     }
     return a.exec();
 }
